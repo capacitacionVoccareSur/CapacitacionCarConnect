@@ -1425,7 +1425,7 @@ footer a:hover{color:var(--cyan)}
   })();
 })();
 function copyPlantilla(btn){
-  var txt="Expediente: \nAsistencia: \nAfiliado: \nC.I.: \nCuenta: CARCONNECT S.A.\nPlan: ASISTENCIA VIAL CARCONNECT\nServicio: BLOQUEO / DESBLOQUEO\nUbicación de la ejecución: https://maps.app.goo.gl/\nCaptura del proceso realizado: ";
+  var txt="Expediente: \nAsistencia: \nAfiliado: \nC.I.: \nCuenta: CARCONNECT S.A.\nPlan: ASISTENCIA VIAL CARCONNECT\nServicio: BLOQUEO / DESBLOQUEO (elegir solo uno al enviar)\nUbicación de la ejecución: https://maps.app.goo.gl/\nCaptura del proceso realizado: ";
   navigator.clipboard.writeText(txt).then(function(){
     var orig=btn.innerHTML;
     btn.innerHTML='<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 8l4 4 8-8"/></svg> ¡Copiado!';
