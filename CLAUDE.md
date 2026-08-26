@@ -22,6 +22,8 @@ start index.html
 
 To deploy, commit and push to `main` — the repo is served as a static site from GitHub.
 
+There are no tests, linters, CI/CD pipelines, or pre-commit hooks.
+
 ## Architecture
 
 Everything lives in a single `index.html` file:

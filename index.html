@@ -19,10 +19,10 @@
   --green:#059669; --green-d:#065F46; --green-lite:#D1FAE5;
   --blue:#0F3460; --vio:#6D28D9; --vio-lite:#EDE9FE;
   --shadow:0 1px 2px rgba(13,17,23,.06),0 8px 24px -12px rgba(13,17,23,.18);
-  --r:10px; --maxw:1180px; --toc-h:42px;
+  --r:10px; --maxw:980px; --toc-h:42px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html,body{height:100%;overflow:hidden}
 body{margin:0;background:var(--paper);color:var(--text);
   font-family:"IBM Plex Sans",system-ui,sans-serif;
   font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
@@ -32,7 +32,7 @@ p{margin:0 0 10px}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
 /* ── HEADER ── */
-.masthead{background:var(--ink);color:#fff;padding:22px 0 0;position:relative}
+.masthead{background:var(--ink);color:#fff;padding:10px 0;position:relative;flex-shrink:0}
 .masthead::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
   background:linear-gradient(90deg,var(--cyan),var(--blue) 45%,var(--amber))}
 .brandbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -75,45 +75,57 @@ p{margin:0 0 10px}
 .mod-card .mt{font-size:13.5px;font-weight:600;color:#fff;line-height:1.35}
 
 
-/* ── NAV ── */
-.tocbar{background:var(--ink);position:sticky;top:0;z-index:55;
-  overflow-x:auto;scrollbar-width:thin}
-.tocbar nav{display:flex;min-width:max-content;padding:0 10px}
-.tocbar a{color:#7B88B0;text-decoration:none;font-family:"IBM Plex Mono",monospace;
-  font-size:10px;letter-spacing:.08em;text-transform:uppercase;
-  padding:10px 12px;white-space:nowrap;border-bottom:2px solid transparent;transition:.15s}
-.tocbar a:hover{color:#fff;background:var(--ink-2)}
-.tocbar a.active{color:#fff;border-bottom-color:var(--cyan)}
+/* ── TAB BAR ── */
+.tabbar{display:flex;overflow-x:auto;scrollbar-width:none;flex-shrink:0;
+  background:#EEF1F7;border-bottom:2px solid #CDD5EA}
+.tabbar::-webkit-scrollbar{display:none}
+.tab-btn{padding:.7rem 1.3rem;white-space:nowrap;font-size:.78rem;font-weight:600;
+  border:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;
+  background:transparent;color:var(--text-soft);transition:color .15s,background .15s,border-color .15s;
+  font-family:"IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
+.tab-btn:hover{color:var(--cyan-d);background:rgba(0,180,216,.08)}
+.tab-btn.active{background:#fff;color:var(--ink);font-weight:700;border-bottom-color:var(--cyan)}
 
 /* ── LAYOUT ── */
-main{padding:90px 0 0}
-section{margin-bottom:52px;scroll-margin-top:calc(var(--toc-h) + 14px)}
-.sec-head{display:flex;align-items:baseline;gap:12px;padding-bottom:12px;
-  margin-bottom:20px;border-bottom:1px solid #DCE2EF}
+main{padding:0}
+section{display:none;padding:16px 0 28px}
+section.tab-active{display:block}
+/* ── Fuente reducida bloqueo en adelante ── */
+:is(#bloqueo,#plataforma,#addiuva,#robo,#plantilla,#documentos){font-size:13px}
+:is(#bloqueo,#plataforma,#addiuva,#robo,#plantilla,#documentos)
+  :is(p,.st-body,.st-title,ul.lst li,.esc h4,.lead,.nota,table,details.acc summary,.fase-big .fb .fdesc){font-size:13px}
+.sec-head{display:flex;align-items:baseline;gap:12px;padding:0 0 10px 14px;
+  margin-bottom:16px;border-bottom:2px solid #DCE2EF;border-left:4px solid var(--cyan)}
+/* ── Doc cards ── */
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:8px 0}
+.doc-card{background:var(--card);border:1px solid #E3E8F0;border-radius:var(--r);
+  padding:14px 15px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:11px}
+.doc-card-head{display:flex;align-items:flex-start;gap:10px}
+.doc-card-ico{width:30px;height:30px;background:var(--red-lite);border-radius:7px;flex:none;
+  display:flex;align-items:center;justify-content:center}
+.doc-card-ico svg{width:14px;height:14px;fill:none;stroke:var(--red-d);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.doc-card-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.4}
+.doc-card-actions{display:flex;gap:6px}
 .sec-num{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--cyan);
   font-weight:600;letter-spacing:.1em}
 .sec-head h2{font-size:clamp(20px,2.4vw,27px);font-weight:700}
 .sec-head .shn{margin-left:auto;font-size:12px;color:var(--text-dim);text-align:right;max-width:28ch}
-.lead{font-size:15px;color:var(--text-soft);max-width:70ch;margin-bottom:18px}
+.lead{font-size:14px;color:var(--text-soft);max-width:70ch;margin-bottom:12px}
 
 /* ── SPEECH ── */
-.speech-block{background:var(--ink);border-radius:16px;overflow:hidden;
-  box-shadow:0 4px 32px -8px rgba(0,180,216,.25),var(--shadow);
-  border:1px solid rgba(0,180,216,.2)}
-.speech-header{background:rgba(0,180,216,.08);padding:12px 22px;
-  display:flex;align-items:center;gap:9px;border-bottom:1px solid rgba(0,180,216,.15)}
-.sh-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);
-  box-shadow:0 0 0 3px rgba(0,180,216,.2);flex:none;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(0,180,216,.2)}
-  50%{box-shadow:0 0 0 6px rgba(0,180,216,.08)}}
+.speech-block{background:var(--card);border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow);border:1.5px solid #BAE6FD}
+.speech-header{background:var(--cyan-lite);padding:10px 18px;
+  display:flex;align-items:center;gap:9px;border-bottom:1px solid #BAE6FD}
+.sh-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);flex:none}
 .sh-label{font-family:"IBM Plex Mono",monospace;font-size:10px;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
-.speech-body{padding:28px 30px}
-.speech-line{color:#E8EDFF;font-size:17px;line-height:1.72;margin-bottom:14px}
+  letter-spacing:.16em;text-transform:uppercase;color:var(--cyan-d)}
+.speech-body{padding:16px 18px}
+.speech-line{color:var(--text);font-size:14px;line-height:1.65;margin-bottom:10px}
 .speech-line:last-child{margin-bottom:0}
-.speech-line .hl{color:var(--cyan);font-weight:600}
-.speech-line em{color:#A0AACC;font-style:italic}
-.speech-divider{border:none;border-top:1px solid rgba(255,255,255,.08);margin:18px 0}
+.speech-line .hl{color:var(--cyan-d);font-weight:600}
+.speech-line em{color:var(--text-soft);font-style:italic}
+.speech-divider{border:none;border-top:1px solid #E3E8F0;margin:14px 0}
 
 /* ── MAPA CONCEPTUAL ── */
 .cmap{margin:18px 0}
@@ -125,8 +137,8 @@ section{margin-bottom:52px;scroll-margin-top:calc(var(--toc-h) + 14px)}
 .flow-row{display:flex;align-items:center;gap:0;justify-content:center;width:100%}
 .fnode{border-radius:10px;padding:10px 16px;font-size:13.5px;font-weight:600;
   text-align:center;position:relative;min-width:140px;max-width:220px;line-height:1.35}
-.fnode.start{background:var(--blue);color:#fff;border-radius:50px}
-.fnode.decision{background:var(--ink-3);color:#fff;transform:rotate(0deg);
+.fnode.start{background:#EBF5FF;color:var(--blue);border:1.5px solid var(--blue);border-radius:50px}
+.fnode.decision{background:var(--cyan-lite);color:var(--cyan-d);
   border:2px solid var(--cyan);border-radius:10px}
 .fnode.action-g{background:var(--green-lite);color:var(--green-d);border:1px solid #A7F3D0}
 .fnode.action-r{background:var(--red-lite);color:var(--red-d);border:1px solid #FECACA}
@@ -152,7 +164,7 @@ section{margin-bottom:52px;scroll-margin-top:calc(var(--toc-h) + 14px)}
   width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid #D0D6E8}
 
 /* Grid de escenarios */
-.esc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:14px 0}
+.esc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:10px 0}
 .esc{border-radius:var(--r);border:1px solid;padding:14px 16px}
 .esc.c-cyan{border-color:#BAE6FD;background:#F0FAFF}
 .esc.c-red{border-color:#FECACA;background:#FFF7F7}
@@ -181,7 +193,7 @@ section{margin-bottom:52px;scroll-margin-top:calc(var(--toc-h) + 14px)}
 .st-title{font-weight:700;color:var(--text);display:block;margin-bottom:2px;font-size:14px}
 
 /* Notas */
-.nota{border-radius:8px;padding:10px 14px;margin:10px 0;border-left:3px solid}
+.nota{border-radius:8px;padding:8px 12px;margin:8px 0;border-left:3px solid}
 .nota .nt{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.13em;
   text-transform:uppercase;font-weight:700;display:block;margin-bottom:5px}
 .nota.warn{background:var(--amber-lite);border-color:var(--amber)}.nota.warn .nt{color:var(--amber-d)}
@@ -198,16 +210,16 @@ section{margin-bottom:52px;scroll-margin-top:calc(var(--toc-h) + 14px)}
 .tag.neu{background:#EEF1F7;color:var(--text-soft)}
 
 /* Fase */
-.fase{background:var(--card);border:1px solid #E3E8F0;border-radius:var(--r);
-  box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
-.fase-head{display:flex;align-items:center;gap:10px;padding:12px 18px;
-  border-bottom:1px solid #EEF1F7;background:#FAFBFE}
+.fase{background:var(--card);border:1px solid #CDD5EA;border-radius:var(--r);
+  box-shadow:0 1px 3px rgba(13,17,23,.07),0 6px 18px -10px rgba(13,17,23,.14);margin-bottom:14px;overflow:hidden}
+.fase-head{display:flex;align-items:center;gap:10px;padding:11px 18px;
+  border-bottom:2px solid #EEF1F7;background:#F8FAFF}
 .fase-num{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:700;
   letter-spacing:.11em;text-transform:uppercase;
-  background:var(--ink);color:var(--cyan);padding:3px 8px;border-radius:5px;flex:none}
+  background:transparent;color:var(--cyan-d);border:1.5px solid var(--cyan);padding:2px 7px;border-radius:5px;flex:none}
 .fase-head h3{font-family:"Bricolage Grotesque",sans-serif;font-size:15.5px;
   font-weight:700;margin:0}
-.fase-body{padding:14px 18px}
+.fase-body{padding:12px 16px}
 .fase-body>:last-child{margin-bottom:0}
 
 /* Listas */
@@ -231,7 +243,7 @@ details.acc[open] summary::after{transform:rotate(180deg)}
 /* Tabla */
 .tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid #E3E8F0;box-shadow:var(--shadow)}
 table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
-thead tr{background:var(--ink);color:#fff}
+thead tr{background:var(--blue);color:#fff}
 thead th{padding:9px 13px;text-align:left;font-family:"IBM Plex Mono",monospace;
   font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:600}
 tbody tr{border-bottom:1px solid #EAEFF7}
@@ -270,7 +282,7 @@ td.k{font-weight:600;color:var(--text)}
 .carousel{position:relative;overflow:hidden;border-radius:var(--r);border:1px solid #E3E8F0;background:var(--card);box-shadow:var(--shadow)}
 .car-track{display:flex;transition:transform .38s cubic-bezier(.4,0,.2,1);will-change:transform}
 .car-track .gal-card{min-width:100%;flex:none;border-radius:0;border:none;box-shadow:none;cursor:default}
-.car-track .gal-card .gal-img{aspect-ratio:unset;height:260px;object-fit:contain;background:#F0F2F7;cursor:zoom-in}
+.car-track .gal-card .gal-img{aspect-ratio:unset;height:220px;object-fit:contain;background:#F0F2F7;cursor:zoom-in}
 .car-track .gal-card .gal-img-ph{aspect-ratio:unset;height:260px;cursor:zoom-in}
 .car-btn{position:absolute;top:calc(50% - 20px);transform:translateY(-50%);
   background:rgba(255,255,255,.94);border:1px solid #DFE3ED;border-radius:50%;
@@ -309,7 +321,7 @@ td.k{font-weight:600;color:var(--text)}
 .fase-big .fn span{font-family:"Bricolage Grotesque",sans-serif;font-size:26px;
   font-weight:800;color:var(--cyan);writing-mode:vertical-rl;text-orientation:mixed;
   transform:rotate(180deg);letter-spacing:.06em}
-.fase-big .fb{padding:14px 18px}
+.fase-big .fb{padding:11px 15px}
 .fase-big .fb h3{font-size:15.5px;font-weight:700;margin-bottom:10px;
   display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .fase-big .fb .fdesc{font-size:14px;color:var(--text-soft);margin-bottom:10px}
@@ -343,19 +355,14 @@ footer .fl{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.1
 footer a{color:#7B88B0;text-decoration:none}
 footer a:hover{color:var(--cyan)}
 
-/* Back top */
-#bt{position:fixed;bottom:20px;right:20px;z-index:90;background:var(--cyan);
-  color:var(--ink);border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;
-  display:none;align-items:center;justify-content:center;
-  box-shadow:0 4px 12px rgba(0,180,216,.35);transition:.2s}
-#bt.show{display:flex}
-#bt:hover{transform:translateY(-2px)}
-#bt svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+/* ── App shell ── */
+.app-shell{display:flex;flex-direction:column;height:100vh}
+.tab-panel{flex:1;overflow-y:auto;background:var(--paper);min-height:0}
 
-@media print{.tocbar,#bt,footer,.pdf-bar,.pdf-sm,.pdf-lg{display:none!important}
-  .acc-body{display:block!important}}
+@media print{.tabbar,footer,.pdf-bar,.pdf-sm,.pdf-lg{display:none!important}
+  .acc-body{display:block!important}section{display:block!important}}
 @media(max-width:640px){
-  .brand-name{font-size:17px}.masthead h1{font-size:22px}
+  .brand-name{font-size:17px}
   .sec-head .shn{display:none}.esc-grid{grid-template-columns:1fr}
   .pdf-sm,.pdf-lg{height:340px}.speech-body{padding:20px 18px}
   .plantilla-cols{grid-template-columns:1fr!important}
@@ -372,12 +379,15 @@ footer a:hover{color:var(--cyan)}
 </head>
 <body>
 
+<!-- APP SHELL -->
+<div class="app-shell">
+
 <!-- HEADER -->
 <header class="masthead">
   <div class="wrap">
     <div class="brandbar">
       <div class="brand-logo">
-        <img src="img/carconnect logo.jpg" alt="Carconnect" style="height:42px;width:auto;border-radius:9px;display:block;">
+        <img src="img/carconnect logo.jpg" alt="Carconnect" style="height:38px;width:auto;border-radius:9px;display:block;">
         <div>
           <div class="brand-name">Carconnect</div>
           <div class="brand-sub">Plataforma de rastreo satelital</div>
@@ -385,143 +395,80 @@ footer a:hover{color:var(--cyan)}
       </div>
       <span class="lbl-right">Documento de apoyo para cabina</span>
     </div>
-    <div class="title-block">
-      <div class="eyebrow">Capacitacion interna</div>
-      <h1>Protocolos y procedimientos operativos</h1>
-      <p class="sub">Documento de apoyo para cabina. Bloqueo, desbloqueo, robo, plataforma y asistencia vial.</p>
-      <div class="meta-strip">
-        <span class="chip">Ecuador</span>
-        <span class="chip">Uso interno</span>
-      </div>
-    </div>
   </div>
 </header>
 
-<!-- MODULOS -->
-<div class="mod-bar">
-  <div class="wrap">
-    <div class="mod-kicker">Contenido del documento</div>
-    <div class="mod-grid">
-      <a href="#saludo" class="mod-card c1">
-        <div class="ml">Modulo 01</div>
-        <div class="mt">Speech de saludo</div>
-      </a>
-      <a href="#soa" class="mod-card c2">
-        <div class="ml">Modulo 02</div>
-        <div class="mt">Registro en SOA</div>
-      </a>
-      <a href="#bloqueo" class="mod-card c2" style="border-color:#A78BFA">
-        <div class="ml">Modulo 03</div>
-        <div class="mt">Bloqueo y Desbloqueo</div>
-      </a>
-      <a href="#plataforma" class="mod-card c3">
-        <div class="ml">Modulo 04</div>
-        <div class="mt">Plataforma Carconnect</div>
-      </a>
-      <a href="#addiuva" class="mod-card c3" style="border-color:var(--green)">
-        <div class="ml" style="color:#6EE7AE">Modulo 05</div>
-        <div class="mt">Asistencia vial</div>
-      </a>
-      <a href="#robo" class="mod-card c4">
-        <div class="ml">Modulo 06</div>
-        <div class="mt">Protocolo de Robo</div>
-      </a>
-      <a href="#plantilla" class="mod-card c2">
-        <div class="ml">Modulo 07</div>
-        <div class="mt">Plantilla correo financieras</div>
-      </a>
-    </div>
-  </div>
-</div>
+<!-- TAB BAR -->
+<nav class="tabbar" id="tabbar">
+  <button class="tab-btn active" onclick="switchTab('saludo')">01 · Saludo + SOA</button>
+  <button class="tab-btn" onclick="switchTab('bloqueo')">02 · Bloqueo</button>
+  <button class="tab-btn" onclick="switchTab('plataforma')">03 · Plataforma</button>
+  <button class="tab-btn" onclick="switchTab('addiuva')">04 · Asistencia vial</button>
+  <button class="tab-btn" onclick="switchTab('robo')">05 · Protocolo Robo</button>
+  <button class="tab-btn" onclick="switchTab('plantilla')">06 · Plantilla</button>
+  <button class="tab-btn" onclick="switchTab('documentos')">07 · Documentación</button>
+</nav>
 
-
-<!-- NAV -->
-<div class="tocbar">
-  <nav id="toc">
-    <a href="#saludo">01 · Saludo</a>
-    <a href="#soa">02 · Registro SOA</a>
-    <a href="#bloqueo">03 · Bloqueo / Desbloqueo</a>
-    <a href="#plataforma">04 · Plataforma</a>
-    <a href="#addiuva">05 · Asistencia vial</a>
-    <a href="#robo">06 · Protocolo Robo</a>
-    <a href="#plantilla">07 · Plantilla correo</a>
-  </nav>
-</div>
-
+<div class="tab-panel">
 <main class="wrap" id="main">
 
-<!-- ══ 01 · SALUDO ══ -->
-<section id="saludo" style="padding-top:30px">
+<!-- ══ 01 · SALUDO + SOA ══ -->
+<section id="saludo">
   <div class="sec-head">
     <span class="sec-num">01</span>
-    <h2>Speech de saludo inicial</h2>
-    <span class="shn">Obligatorio en toda llamada.</span>
+    <h2>Saludo y Registro SOA</h2>
+    <span class="shn">Apertura de llamada + creacion de asistencia.</span>
   </div>
 
-  <div class="speech-block" data-unit>
-    <div class="speech-header">
-      <div class="sh-dot"></div>
-      <span class="sh-label">Apertura de llamada &mdash; Texto obligatorio</span>
-    </div>
-    <div class="speech-body">
-      <p class="speech-line">
-        <em>Buenos dias / buenas tardes / buenas noches,</em> gracias por comunicarse con
-        <span class="hl">Asistencia Vial Carconnect</span>, le saluda
-        <em>Xxxx Xxxx</em>. &iquest;Con quien tengo el gusto de hablar? y &iquest;como puedo servirle?
-      </p>
-      <hr class="speech-divider">
-      <p class="speech-line">
-        Para continuar, informarle que para efectos de control de calidad
-        <span class="hl">esta llamada esta siendo grabada.</span>
-      </p>
-    </div>
-  </div>
-</section>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start">
 
-<!-- ══ 02 · REGISTRO EN SOA ══ -->
-<section id="soa">
-  <div class="sec-head">
-    <span class="sec-num">02</span>
-    <h2>Registro en SOA</h2>
-    <span class="shn">Validación y creación de asistencia.</span>
-  </div>
-
-  <p class="lead">La validación se intentará mediante <b>VIN o número de chasis</b>, <b>cédula</b> o <b>nombre</b>.</p>
-
-  <div class="nota info" data-unit>
-    <span class="nt">En caso de no validar</span>
-    Se crea el registro de forma <b>manual</b> y se escala a <b>filial</b> para validación.
-  </div>
-
-  <div class="nota stop" data-unit style="margin-top:10px">
-    <span class="nt">Tipo de asistencia — Importante</span>
-    Para la creación de asistencia se debe seleccionar <b>Bloqueo / Desbloqueo</b> y <b>NO</b> "Referencia".
-  </div>
-
-  <div class="nota warn" data-unit style="margin-top:10px">
-    <span class="nt">Motivo del bloqueo — Obligatorio registrar</span>
-    Los bloqueos deben ser realizados únicamente en <b>casos de emergencia</b> o cuando el cliente considere que existe un <b>riesgo real</b> al mantener su vehículo estacionado en determinado lugar, o son <b>bloqueos por financieras</b> solicitados por correo a
-    <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">recuperaciones@carconnect.com.ec</code>.
-  </div>
-
-  <!-- CAPTURA SOA -->
-  <div class="fase" data-unit style="margin-top:18px">
-    <div class="fase-head">
-      <span class="fase-num" style="background:var(--blue)">CAPTURA</span>
-      <h3>Vista del sistema SOA</h3>
-    </div>
-    <div class="fase-body">
-      <div class="gallery" style="grid-template-columns:1fr">
-        <div class="gal-card" onclick="openLb('img/cap-soa.png','Registro en SOA — Pantalla de validación y creación de asistencia')">
-          <img class="gal-img" src="img/cap-soa.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="SOA" style="aspect-ratio:unset;height:240px;object-fit:contain;background:#F0F2F7">
-          <div class="gal-img-ph" style="display:none">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <span>cap-soa.png</span>
-          </div>
-          <div class="gal-cap"><b>Pantalla SOA</b>Validación por VIN / chasis, cédula o nombre. Crear como Bloqueo/Desbloqueo.</div>
+    <!-- SPEECH -->
+    <div>
+      <div class="speech-block">
+        <div class="speech-header">
+          <div class="sh-dot"></div>
+          <span class="sh-label">Script de apertura &mdash; obligatorio</span>
+        </div>
+        <div class="speech-body" style="padding:14px 18px">
+          <p class="speech-line" style="font-size:13px;line-height:1.6;margin-bottom:8px">
+            <em>Buenos dias / tardes / noches,</em> gracias por comunicarse con
+            <span class="hl">Asistencia Vial Carconnect</span>, le saluda <em>Xxxx Xxxx</em>.
+            &iquest;Con quien tengo el gusto de hablar? y &iquest;como puedo servirle?
+          </p>
+          <hr class="speech-divider" style="margin:10px 0">
+          <p class="speech-line" style="font-size:13px;line-height:1.6;margin-bottom:0">
+            Esta llamada <span class="hl">esta siendo grabada</span> para efectos de control de calidad.
+          </p>
         </div>
       </div>
     </div>
+
+    <!-- SOA -->
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:2px">Registro SOA — Validar por VIN / cédula / nombre</div>
+      <div class="nota info" style="margin:0;font-size:13px">
+        <span class="nt">Afiliado no valida en base</span>
+        Crear <b>manual</b> y escalar a <b>filial</b>.
+      </div>
+      <div class="nota stop" style="margin:0;font-size:13px">
+        <span class="nt">Tipo de asistencia</span>
+        Seleccionar <b>Bloqueo / Desbloqueo</b>. <b>NO</b> "Referencia".
+      </div>
+      <div class="nota go" style="margin:0;font-size:13px">
+        <span class="nt">Proveedor en SOA</span>
+        Al finalizar el procedimiento de bloqueo, asignar <b>Proveedor bloqueo - desbloqueo</b> en SOA.
+      </div>
+      <details class="acc" style="margin-top:2px">
+        <summary style="font-size:12.5px">Ver pantalla SOA</summary>
+        <div class="acc-body" style="padding:8px 0 4px">
+          <div class="gal-card" onclick="openLb('img/cap-soa.png','Pantalla SOA — validacion y creacion de asistencia')" style="border-radius:var(--r);overflow:hidden">
+            <img class="gal-img" src="img/cap-soa.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="SOA" style="aspect-ratio:unset;height:170px;object-fit:contain;background:#F0F2F7">
+            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-soa.png</span></div>
+          </div>
+        </div>
+      </details>
+    </div>
+
   </div>
 </section>
 
@@ -639,7 +586,7 @@ footer a:hover{color:var(--cyan)}
   <!-- MAPA DESBLOQUEO -->
   <div class="fase" data-unit>
     <div class="fase-head">
-      <span class="fase-num" style="background:var(--green-d);color:#fff">DESBLOQUEO</span>
+      <span class="fase-num" style="border-color:var(--green);color:var(--green-d)">DESBLOQUEO</span>
       <h3>Protocolo de desbloqueo &mdash; segun origen del bloqueo</h3>
     </div>
     <div class="fase-body">
@@ -676,11 +623,11 @@ footer a:hover{color:var(--cyan)}
   <!-- CREDENCIALES FINANCIERAS -->
   <div class="fase" data-unit>
     <div class="fase-head">
-      <span class="fase-num" style="background:var(--vio);color:#fff">CORREO</span>
+      <span class="fase-num" style="border-color:var(--vio);color:var(--vio)">CORREO</span>
       <h3>Credenciales &mdash; Solicitudes de bloqueo de financieras</h3>
     </div>
     <div class="fase-body">
-      <p style="font-size:14px;color:var(--text-soft);margin-bottom:14px">Revisar <b>diariamente</b> las solicitudes de bloqueo remitidas por la financiera en el siguiente correo:</p>
+      <p style="font-size:13px;color:var(--text-soft);margin-bottom:14px">Revisar <b>diariamente</b> las solicitudes de bloqueo remitidas por la financiera en el siguiente correo:</p>
       <div class="esc-grid">
         <div class="esc c-vio">
           <span class="esc-label">Credenciales de acceso</span>
@@ -695,7 +642,7 @@ footer a:hover{color:var(--cyan)}
         </div>
         <div class="esc c-cyan">
           <span class="esc-label">Procedimiento post-bloqueo</span>
-          <p style="font-size:14px;color:var(--text-soft);margin:0 0 8px">Una vez realizado el bloqueo, se debe <b>responder al mismo correo</b> mediante el cual se recibió la solicitud:</p>
+          <p style="font-size:13px;color:var(--text-soft);margin:0 0 8px">Una vez realizado el bloqueo, se debe <b>responder al mismo correo</b> mediante el cual se recibió la solicitud:</p>
           <ul class="lst" style="margin:0">
             <li>Adjuntar <b>captura de pantalla</b> que confirme la ejecución del bloqueo.</li>
             <li>Mantener a <b>todos los destinatarios originales</b> en copia para asegurar la trazabilidad y seguimiento.</li>
@@ -718,18 +665,6 @@ footer a:hover{color:var(--cyan)}
     <p style="margin:0;font-size:13.5px">El objetivo es confirmar si la solicitud amerita o no la ejecución del bloqueo. Bajo ninguna circunstancia se deberá realizar el bloqueo de forma directa sin contar previamente con la validación de Operaciones.</p>
   </div>
 
-  <!-- PDF -->
-  <div class="pdf-viewer" data-unit>
-    <div class="pdf-bar">
-      <span class="pdf-title">Protocolo Bloqueo y Desbloqueo.pdf</span>
-      <div class="pdf-actions">
-        <button class="pbtn" onclick="tgl('fr2',this)"><svg viewBox="0 0 14 14"><path d="M2 5V2h3M9 2h3v3M2 9v3h3M9 12h3v-3"/></svg>Expandir</button>
-        <a class="pbtn" href="PROTOCOLO DE EMERGENCIA_BLOQUEO Y DESBLOQUEO (1).pdf" target="_blank"><svg viewBox="0 0 14 14"><path d="M6 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M9 2h3v3M11 2l-5 5"/></svg>Abrir</a>
-        <a class="pbtn primary" href="PROTOCOLO DE EMERGENCIA_BLOQUEO Y DESBLOQUEO (1).pdf" download><svg viewBox="0 0 14 14"><path d="M7 2v8M4 8l3 3 3-3M2 12h10"/></svg>Descargar</a>
-      </div>
-    </div>
-    <iframe id="fr2" class="pdf-sm" src="PROTOCOLO DE EMERGENCIA_BLOQUEO Y DESBLOQUEO (1).pdf#toolbar=1&navpanes=0&view=FitH" title="Protocolo Bloqueo"></iframe>
-  </div>
 </section>
 
 <!-- ══ 04 · PLATAFORMA ══ -->
@@ -740,10 +675,164 @@ footer a:hover{color:var(--cyan)}
     <span class="shn">Rastreo satelital + uso de sistema.</span>
   </div>
 
+  <!-- ACCESO PLATAFORMA GPS -->
+  <div class="fase" data-unit>
+    <div class="fase-head">
+      <span class="fase-num">ACCESO</span>
+      <h3>Acceso a la plataforma GPS &mdash; Bloqueo remoto</h3>
+    </div>
+    <div class="fase-body">
+      <div class="esc-grid">
+        <div class="esc c-cyan">
+          <span class="esc-label">Enlace de acceso</span>
+          <a href="https://web.autoconectado.io/select-org" target="_blank"
+             style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--cyan-d);font-weight:600;word-break:break-all">
+            https://web.autoconectado.io/select-org
+          </a>
+        </div>
+        <div class="esc c-vio">
+          <span class="esc-label">Credenciales de acceso GPS</span>
+          <div style="margin:6px 0 4px;display:flex;align-items:center;gap:8px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:72px">Usuario</span>
+            <code style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">recuperaciones@carconnect.com.ec</code>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:72px">Clave</span>
+            <code style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">Addiuva2026</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERRAMIENTAS -->
+  <div class="fase" data-unit>
+    <div class="fase-head">
+      <span class="fase-num" style="border-color:var(--blue);color:var(--blue)">SISTEMA</span>
+      <h3>Herramientas y navegacion</h3>
+    </div>
+    <div class="fase-body">
+      <div class="esc-grid">
+        <div class="esc c-vio">
+          <span class="esc-label">Hubspot</span>
+          <p style="font-size:13px;margin:0;color:var(--text-soft)">Herramienta para <b>todos los clientes</b>. Permite saber en que parte del proceso se encuentra el cliente. Si el dispositivo no ha sido instalado, el cliente debe contactar a su asesor.</p>
+        </div>
+        <div class="esc c-cyan">
+          <span class="esc-label">Validacion de identidad</span>
+          <p style="font-size:13px;margin:0;color:var(--text-soft)">Buscar por: <b>nombre, numero de cedula, placa o chasis</b>. Normalmente los vehiculos se entregan con dispositivo instalado.</p>
+        </div>
+        <div class="esc c-cyan">
+          <span class="esc-label">Linea de consultas</span>
+          <p style="font-size:22px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--cyan-d);margin:4px 0 0">1800 89 89</p>
+          <p style="font-size:13px;color:var(--text-soft);margin:4px 0 0">Asistencias, reportes de robo y solicitudes de bloqueo / desbloqueo.</p>
+        </div>
+      </div>
+
+      <!-- MAPA NAVEGACION PLATAFORMA -->
+      <details class="acc" style="margin-top:10px">
+        <summary>Flujo de navegacion en plataforma GPS</summary>
+        <div class="acc-body">
+          <div class="flow" style="margin-top:8px">
+            <div class="fnode start">Buscar cliente (placa / cedula / chasis / nombre)</div>
+            <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+            <div class="fnode action-b">Click para acceder al vehiculo</div>
+            <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+            <div class="fnode decision">Verificar estado: <b>"AHORA"</b> = en movimiento (actualiza cada 10 seg.)</div>
+            <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+            <div class="fnode action-a">Ir a los 4 puntos desplegables (derecha) &rarr; <b>APAGADO REMOTO</b></div>
+            <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+            <div class="fside">
+              <div class="fside-col">
+                <span class="fside-lbl yes">Parado +10 min</span>
+                <div class="fnode action-g">Ejecutar bloqueo / desbloqueo</div>
+              </div>
+              <div class="fside-col">
+                <span class="fside-lbl no">En movimiento</span>
+                <div class="fnode action-r">NO ejecutar. Esperar o monitorear.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <div class="nota warn" style="margin-top:14px">
+        <span class="nt">Robo sin senal</span>
+        En el boton <b>ALERTAS</b> se puede descargar un Excel con todos los links de las ultimas coordenadas emitidas para compartir con la policia.
+      </div>
+    </div>
+  </div>
+
+  <!-- GALERIA -->
+  <div class="fase" data-unit>
+    <div class="fase-head">
+      <span class="fase-num" style="border-color:var(--blue);color:var(--blue)">GALERIA</span>
+      <h3>Proceso en plataforma &mdash; capturas de pantalla</h3>
+    </div>
+    <div class="fase-body">
+      <div class="carousel" id="car-plat-wrap">
+        <div class="car-track" id="car-plat">
+
+          <div class="gal-card">
+            <img class="gal-img" src="img/cap-01.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Pantalla principal" onclick="openLb('img/cap-01.png','Pantalla principal — Vista general de organizaciones y busqueda de clientes')">
+            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-01.png</span></div>
+            <div class="gal-cap"><b>01 — Pantalla principal</b>Vista general de organizaciones y busqueda de clientes.</div>
+          </div>
+
+          <div class="gal-card">
+            <img class="gal-img" src="img/cap-02.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Busqueda de grupo" onclick="openLb('img/cap-02.png','Busqueda de grupo — Para vehiculos Volkswagen. Otras marcas: buscar por chasis')">
+            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-02.png</span></div>
+            <div class="gal-cap"><b>02 — Busqueda de grupo</b>Para vehiculos Volkswagen. Otras marcas: buscar por chasis.</div>
+          </div>
+
+          <div class="gal-card">
+            <img class="gal-img" src="img/cap-03.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Busqueda por nombre" onclick="openLb('img/cap-03.png','Busqueda de autos por nombre del titular')">
+            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-03.png</span></div>
+            <div class="gal-cap"><b>03 — Busqueda de autos</b>Busqueda por nombre del titular.</div>
+          </div>
+
+          <div class="gal-card">
+            <img class="gal-img" src="img/cap-04.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Geolocalizacion" onclick="openLb('img/cap-04.png','Resultado de busqueda: geolocalizacion del vehiculo. AHORA = en movimiento. NO BLOQUEAR NUNCA EN MOVIMIENTO')">
+            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-04.png</span></div>
+            <div class="gal-cap"><b>04 — Resultado de busqueda</b>Geolocalizacion del vehiculo. <b style="color:var(--red)">"Ahora" = en movimiento — NO BLOQUEAR.</b></div>
+          </div>
+
+          <div class="gal-card">
+            <img class="gal-img" src="img/cap-05.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Pasos bloqueo" onclick="openLb('img/cap-05.png','Pasos para bloqueo/desbloqueo: 1) Click en 4 botones. 2) Verificar estado. 3) Click encendido/apagado')">
+            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-05.png</span></div>
+            <div class="gal-cap"><b>05 — Pasos bloqueo / desbloqueo</b>1. Click en 4 botones → 2. Verificar estado → 3. Click encendido/apagado.</div>
+          </div>
+
+          <div class="gal-card">
+            <img class="gal-img" src="img/cap-06.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Paro de motor" onclick="openLb('img/cap-06.png','Accion: Enviar paro de motor — Unico boton para bloqueo y desbloqueo')">
+            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-06.png</span></div>
+            <div class="gal-cap"><b>06 — Enviar paro de motor</b>Único botón para bloqueo y desbloqueo. Aquí se finaliza la acción.</div>
+          </div>
+
+          <div class="gal-card">
+            <img class="gal-img" src="img/cap-07.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Boton Alertas" onclick="openLb('img/cap-07.png','Descarga de ultima ubicacion — Click en boton Alertas')">
+            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-07.png</span></div>
+            <div class="gal-cap"><b>07 — Botón Alertas</b>Click en "Alertas" para acceder a la descarga de última ubicación.</div>
+          </div>
+
+          <div class="gal-card">
+            <img class="gal-img" src="img/cap-08.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Descarga Excel" onclick="openLb('img/cap-08.png','Descarga Excel — Click en Descargar para obtener archivo con ubicacion en texto')">
+            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-08.png</span></div>
+            <div class="gal-cap"><b>08 — Descarga Excel</b>Click en "Descargar" para obtener archivo con ubicación completa en texto.</div>
+          </div>
+
+        </div>
+        <button class="car-btn car-prev" onclick="carMove('car-plat',this,-1)" aria-label="Anterior">&#8249;</button>
+        <button class="car-btn car-next" onclick="carMove('car-plat',this,1)" aria-label="Siguiente">&#8250;</button>
+        <div class="car-dots" id="car-plat-dots"></div>
+        <div class="car-counter" id="car-plat-count"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- MARCAS -->
   <div class="fase" data-unit>
     <div class="fase-head">
-      <span class="fase-num" style="background:var(--blue)">MARCAS</span>
+      <span class="fase-num" style="border-color:var(--blue);color:var(--blue)">MARCAS</span>
       <h3>Marcas de vehiculos en plataforma</h3>
     </div>
     <div class="fase-body">
@@ -862,171 +951,6 @@ footer a:hover{color:var(--cyan)}
     </div>
   </div>
 
-  <!-- HERRAMIENTAS -->
-  <div class="fase" data-unit>
-    <div class="fase-head">
-      <span class="fase-num" style="background:var(--blue)">SISTEMA</span>
-      <h3>Herramientas y navegacion</h3>
-    </div>
-    <div class="fase-body">
-      <div class="esc-grid">
-        <div class="esc c-vio">
-          <span class="esc-label">Hubspot</span>
-          <p style="font-size:14px;margin:0;color:var(--text-soft)">Herramienta para <b>todos los clientes</b>. Permite saber en que parte del proceso se encuentra el cliente. Si el dispositivo no ha sido instalado, el cliente debe contactar a su asesor.</p>
-        </div>
-        <div class="esc c-cyan">
-          <span class="esc-label">Validacion de identidad</span>
-          <p style="font-size:14px;margin:0;color:var(--text-soft)">Buscar por: <b>nombre, numero de cedula, placa o chasis</b>. Normalmente los vehiculos se entregan con dispositivo instalado.</p>
-        </div>
-        <div class="esc c-cyan">
-          <span class="esc-label">Linea de consultas</span>
-          <p style="font-size:22px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--cyan-d);margin:4px 0 0">1800 89 89</p>
-          <p style="font-size:13px;color:var(--text-soft);margin:4px 0 0">Asistencias, reportes de robo y solicitudes de bloqueo / desbloqueo.</p>
-        </div>
-      </div>
-
-      <!-- MAPA NAVEGACION PLATAFORMA -->
-      <div class="cmap" style="margin-top:16px">
-        <span class="cmap-title">Flujo de navegacion en la plataforma GPS</span>
-        <div class="flow">
-          <div class="fnode start">Buscar cliente (placa / cedula / chasis / nombre)</div>
-          <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-          <div class="fnode action-b">Click para acceder al vehiculo</div>
-          <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-          <div class="fnode decision">Verificar estado: <b>"AHORA"</b> = en movimiento (actualiza cada 10 seg.)</div>
-          <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-          <div class="fnode action-a">Ir a los 4 puntos desplegables (derecha) &rarr; <b>APAGADO REMOTO</b></div>
-          <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-          <div class="fside">
-            <div class="fside-col">
-              <span class="fside-lbl yes">Parado +10 min</span>
-              <div class="fnode action-g">Ejecutar bloqueo / desbloqueo</div>
-            </div>
-            <div class="fside-col">
-              <span class="fside-lbl no">En movimiento</span>
-              <div class="fnode action-r">NO ejecutar. Esperar o monitorear.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="nota warn" style="margin-top:14px">
-        <span class="nt">Robo sin senal</span>
-        En el boton <b>ALERTAS</b> se puede descargar un Excel con todos los links de las ultimas coordenadas emitidas para compartir con la policia.
-      </div>
-    </div>
-  </div>
-
-  <!-- ACCESO PLATAFORMA GPS -->
-  <div class="fase" data-unit>
-    <div class="fase-head">
-      <span class="fase-num" style="background:var(--cyan-d);color:#fff">ACCESO</span>
-      <h3>Acceso a la plataforma GPS &mdash; Bloqueo remoto</h3>
-    </div>
-    <div class="fase-body">
-      <div class="esc-grid">
-        <div class="esc c-cyan">
-          <span class="esc-label">Enlace de acceso</span>
-          <p style="font-size:14px;margin:0 0 8px;color:var(--text-soft)">Plataforma para localización y bloqueo remoto de vehículos:</p>
-          <a href="https://web.autoconectado.io/select-org" target="_blank"
-             style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--cyan-d);font-weight:600;word-break:break-all">
-            https://web.autoconectado.io/select-org
-          </a>
-        </div>
-        <div class="esc c-vio">
-          <span class="esc-label">Credenciales de acceso GPS</span>
-          <div style="margin:6px 0 4px;display:flex;align-items:center;gap:8px">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:72px">Usuario</span>
-            <code style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">recuperaciones@carconnect.com.ec</code>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:72px">Clave</span>
-            <code style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">Addiuva2026</code>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- GALERIA -->
-  <div class="fase" data-unit>
-    <div class="fase-head">
-      <span class="fase-num" style="background:var(--blue)">GALERIA</span>
-      <h3>Proceso en plataforma &mdash; capturas de pantalla</h3>
-    </div>
-    <div class="fase-body">
-      <div class="carousel" id="car-plat-wrap">
-        <div class="car-track" id="car-plat">
-
-          <div class="gal-card">
-            <img class="gal-img" src="img/cap-01.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Pantalla principal" onclick="openLb('img/cap-01.png','Pantalla principal — Vista general de organizaciones y busqueda de clientes')">
-            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-01.png</span></div>
-            <div class="gal-cap"><b>01 — Pantalla principal</b>Vista general de organizaciones y busqueda de clientes.</div>
-          </div>
-
-          <div class="gal-card">
-            <img class="gal-img" src="img/cap-02.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Busqueda de grupo" onclick="openLb('img/cap-02.png','Busqueda de grupo — Para vehiculos Volkswagen. Otras marcas: buscar por chasis')">
-            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-02.png</span></div>
-            <div class="gal-cap"><b>02 — Busqueda de grupo</b>Para vehiculos Volkswagen. Otras marcas: buscar por chasis.</div>
-          </div>
-
-          <div class="gal-card">
-            <img class="gal-img" src="img/cap-03.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Busqueda por nombre" onclick="openLb('img/cap-03.png','Busqueda de autos por nombre del titular')">
-            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-03.png</span></div>
-            <div class="gal-cap"><b>03 — Busqueda de autos</b>Busqueda por nombre del titular.</div>
-          </div>
-
-          <div class="gal-card">
-            <img class="gal-img" src="img/cap-04.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Geolocalizacion" onclick="openLb('img/cap-04.png','Resultado de busqueda: geolocalizacion del vehiculo. AHORA = en movimiento. NO BLOQUEAR NUNCA EN MOVIMIENTO')">
-            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-04.png</span></div>
-            <div class="gal-cap"><b>04 — Resultado de busqueda</b>Geolocalizacion del vehiculo. <b style="color:var(--red)">"Ahora" = en movimiento — NO BLOQUEAR.</b></div>
-          </div>
-
-          <div class="gal-card">
-            <img class="gal-img" src="img/cap-05.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Pasos bloqueo" onclick="openLb('img/cap-05.png','Pasos para bloqueo/desbloqueo: 1) Click en 4 botones. 2) Verificar estado. 3) Click encendido/apagado')">
-            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-05.png</span></div>
-            <div class="gal-cap"><b>05 — Pasos bloqueo / desbloqueo</b>1. Click en 4 botones → 2. Verificar estado → 3. Click encendido/apagado.</div>
-          </div>
-
-          <div class="gal-card">
-            <img class="gal-img" src="img/cap-06.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Paro de motor" onclick="openLb('img/cap-06.png','Accion: Enviar paro de motor — Unico boton para bloqueo y desbloqueo')">
-            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-06.png</span></div>
-            <div class="gal-cap"><b>06 — Enviar paro de motor</b>Único botón para bloqueo y desbloqueo. Aquí se finaliza la acción.</div>
-          </div>
-
-          <div class="gal-card">
-            <img class="gal-img" src="img/cap-07.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Boton Alertas" onclick="openLb('img/cap-07.png','Descarga de ultima ubicacion — Click en boton Alertas')">
-            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-07.png</span></div>
-            <div class="gal-cap"><b>07 — Botón Alertas</b>Click en "Alertas" para acceder a la descarga de última ubicación.</div>
-          </div>
-
-          <div class="gal-card">
-            <img class="gal-img" src="img/cap-08.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Descarga Excel" onclick="openLb('img/cap-08.png','Descarga Excel — Click en Descargar para obtener archivo con ubicacion en texto')">
-            <div class="gal-img-ph" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>cap-08.png</span></div>
-            <div class="gal-cap"><b>08 — Descarga Excel</b>Click en "Descargar" para obtener archivo con ubicación completa en texto.</div>
-          </div>
-
-        </div>
-        <button class="car-btn car-prev" onclick="carMove('car-plat',this,-1)" aria-label="Anterior">&#8249;</button>
-        <button class="car-btn car-next" onclick="carMove('car-plat',this,1)" aria-label="Siguiente">&#8250;</button>
-        <div class="car-dots" id="car-plat-dots"></div>
-        <div class="car-counter" id="car-plat-count"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PDF GUIA GPS -->
-  <div class="pdf-viewer" data-unit>
-    <div class="pdf-bar">
-      <span class="pdf-title">Guia plataforma GPS — Carconnect</span>
-      <div class="pdf-actions">
-        <button class="pbtn" onclick="tgl('fr-gps',this)"><svg viewBox="0 0 14 14"><path d="M2 5V2h3M9 2h3v3M2 9v3h3M9 12h3v-3"/></svg>Expandir</button>
-        <a class="pbtn" href="GUIA_PLATAFORMA_GPS.pdf" target="_blank"><svg viewBox="0 0 14 14"><path d="M6 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M9 2h3v3M11 2l-5 5"/></svg>Abrir</a>
-        <a class="pbtn primary" href="GUIA_PLATAFORMA_GPS.pdf" download><svg viewBox="0 0 14 14"><path d="M7 2v8M4 8l3 3 3-3M2 12h10"/></svg>Descargar</a>
-      </div>
-    </div>
-    <iframe id="fr-gps" class="pdf-sm" src="GUIA_PLATAFORMA_GPS.pdf#toolbar=1&navpanes=0&view=FitH" title="Guia GPS"></iframe>
-  </div>
 </section>
 
 <!-- ══ 04 · ADDIUVA ══ -->
@@ -1037,13 +961,12 @@ footer a:hover{color:var(--cyan)}
     <span class="shn">Servicios, limites y exclusiones.</span>
   </div>
 
-  <p class="lead">Asistencias viales regulares que tambien estan dentro de cobertura en el plan. Operan <b>24/7</b> en el territorio nacional (principales ciudades, excluye Galapagos).</p>
-  <p style="font-size:14px;color:var(--text-soft);margin-bottom:18px;font-style:italic">También tienen cobertura vial regular.</p>
+  <p class="lead">Servicios disponibles <b>24/7</b> en el territorio nacional (principales ciudades, excluye Galápagos).</p>
 
   <!-- TABLA -->
   <div class="fase" data-unit>
     <div class="fase-head">
-      <span class="fase-num" style="background:var(--amber-d);color:#fff">TABLA</span>
+      <span class="fase-num" style="border-color:var(--amber);color:var(--amber-d)">TABLA</span>
       <h3>Servicios, limites y eventos</h3>
     </div>
     <div class="fase-body">
@@ -1078,21 +1001,8 @@ footer a:hover{color:var(--cyan)}
   <div class="nota info" data-unit>
     <span class="nt">Ámbito territorial</span>
     Servicio en Ecuador, perímetro urbano de principales ciudades. <b>Excluye Galápagos.</b> No opera bajo modalidad de reembolso.
-    </div>
   </div>
 
-  <!-- PDF ADDIUVA -->
-  <div class="pdf-viewer" data-unit>
-    <div class="pdf-bar">
-      <span class="pdf-title">Anexo Programa ADDIUVA — Carconnect.pdf</span>
-      <div class="pdf-actions">
-        <button class="pbtn" onclick="tgl('fr4',this)"><svg viewBox="0 0 14 14"><path d="M2 5V2h3M9 2h3v3M2 9v3h3M9 12h3v-3"/></svg>Expandir</button>
-        <a class="pbtn" href="ANEXO PROGRAMA DE ASISTENCIA ADDIUVA - CARCONNECT (2).pdf" target="_blank"><svg viewBox="0 0 14 14"><path d="M6 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M9 2h3v3M11 2l-5 5"/></svg>Abrir</a>
-        <a class="pbtn primary" href="ANEXO PROGRAMA DE ASISTENCIA ADDIUVA - CARCONNECT (2).pdf" download><svg viewBox="0 0 14 14"><path d="M7 2v8M4 8l3 3 3-3M2 12h10"/></svg>Descargar</a>
-      </div>
-    </div>
-    <iframe id="fr4" class="pdf-sm" src="ANEXO PROGRAMA DE ASISTENCIA ADDIUVA - CARCONNECT (2).pdf#toolbar=1&navpanes=0&view=FitH" title="ADDIUVA"></iframe>
-  </div>
 </section>
 
 <!-- ══ 05 · PROTOCOLO ROBO ══ -->
@@ -1103,47 +1013,47 @@ footer a:hover{color:var(--cyan)}
     <span class="shn">5 fases. Prioridad maxima.</span>
   </div>
 
-  <p class="lead"><b>Objetivo:</b> Validar la identidad del cliente, localizar y asegurar el vehiculo en el menor tiempo posible, coordinar con autoridades y mantener informado al cliente con respaldo legal.</p>
-
   <!-- MAPA FASES -->
-  <div class="cmap" data-unit style="margin-bottom:20px">
-    <span class="cmap-title">Flujo general del protocolo de robo</span>
-    <div class="flow">
-      <div class="fnode start">Llamada de reporte de robo</div>
-      <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-      <div class="fnode action-b">FASE 1: Validar identidad del cliente</div>
-      <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-      <div class="fnode decision">FASE 2: Diagnosticar senal del GPS</div>
-      <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-      <div class="fside">
-        <div class="fside-col">
-          <span class="fside-lbl yes">Con senal</span>
-          <div class="fnode action-g">Evaluar velocidad &rarr; Bloquear si esta parado</div>
-          <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-          <div class="fnode action-a">Llamar ECU 911 con coordenadas en tiempo real</div>
+  <details class="acc" data-unit style="margin-bottom:14px">
+    <summary>Ver flujo completo del protocolo</summary>
+    <div class="acc-body">
+      <div class="flow" style="margin-top:6px">
+        <div class="fnode start">Llamada de reporte de robo</div>
+        <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+        <div class="fnode action-b">FASE 1: Validar identidad del cliente</div>
+        <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+        <div class="fnode decision">FASE 2: Diagnosticar senal del GPS</div>
+        <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+        <div class="fside">
+          <div class="fside-col">
+            <span class="fside-lbl yes">Con senal</span>
+            <div class="fnode action-g">Evaluar velocidad &rarr; Bloquear si esta parado</div>
+            <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+            <div class="fnode action-a">Llamar ECU 911 con coordenadas en tiempo real</div>
+          </div>
+          <div class="fside-col">
+            <span class="fside-lbl no">Sin senal</span>
+            <div class="fnode action-r">Buscar ultima ubicacion en historial</div>
+            <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+            <div class="fnode action-a">Llamar ECU 911 con ultima coordenada</div>
+          </div>
         </div>
-        <div class="fside-col">
-          <span class="fside-lbl no">Sin senal</span>
-          <div class="fnode action-r">Buscar ultima ubicacion en historial</div>
-          <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-          <div class="fnode action-a">Llamar ECU 911 con ultima coordenada</div>
-        </div>
+        <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+        <div class="fnode action-b">FASE 3: Enviar correo de evidencia (primeras 2 horas)</div>
+        <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+        <div class="fnode action-b">FASE 4: Monitoreo y seguimiento (72 horas)</div>
+        <div class="farrow"><div class="line"></div><div class="tip"></div></div>
+        <div class="fnode end">FASE 5: Cierre + Informe Tecnico Final PDF</div>
       </div>
-      <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-      <div class="fnode action-b">FASE 3: Enviar correo de evidencia (primeras 2 horas)</div>
-      <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-      <div class="fnode action-b">FASE 4: Monitoreo y seguimiento (72 horas)</div>
-      <div class="farrow"><div class="line"></div><div class="tip"></div></div>
-      <div class="fnode end">FASE 5: Cierre + Informe Tecnico Final PDF</div>
     </div>
-  </div>
+  </details>
 
   <!-- FASE 1 -->
   <div class="fase-big" data-unit>
     <div class="fn"><span>F1</span></div>
     <div class="fb">
       <h3>Validacion de identidad <span class="tag neu">Filtro de seguridad</span></h3>
-      <p class="fdesc">Mantener la calma. Empatizar: <em>"Lamento lo sucedido, vamos a ayudarle de inmediato."</em></p>
+      <p class="fdesc">Expresar empatia inmediata y solicitar los datos de verificacion.</p>
       <div class="esc-grid">
         <div class="esc c-cyan">
           <span class="esc-label">Preguntas principales (cualquiera)</span>
@@ -1190,12 +1100,17 @@ footer a:hover{color:var(--cyan)}
     <div class="fn"><span>F3</span></div>
     <div class="fb">
       <h3>Notificacion y evidencia <span class="tag neu">Primeras 2 horas</span></h3>
-      <p class="fdesc">Enviar un mail formal con la plantilla <b>"Reporte de Emergencia en Progreso"</b>. Contenido del correo:</p>
-      <ul class="lst">
-        <li>Confirmacion de recepcion del reporte (hora y fecha).</li>
-        <li>Ultima ubicacion conocida con coordenadas y mapa.</li>
-        <li>Link de seguimiento / acceso a la APP para que el cliente vea la ubicacion en tiempo real y apoye a las patrullas en territorio.</li>
-      </ul>
+      <details class="acc" style="margin-top:6px">
+        <summary>Contenido del correo</summary>
+        <div class="acc-body">
+          <p class="fdesc" style="margin-bottom:6px">Plantilla: <b>"Reporte de Emergencia en Progreso"</b></p>
+          <ul class="lst" style="margin:0">
+            <li>Confirmacion de recepcion del reporte (hora y fecha).</li>
+            <li>Ultima ubicacion conocida con coordenadas y mapa.</li>
+            <li>Link de seguimiento / acceso a la APP.</li>
+          </ul>
+        </div>
+      </details>
     </div>
   </div>
 
@@ -1204,17 +1119,21 @@ footer a:hover{color:var(--cyan)}
     <div class="fn"><span>F4</span></div>
     <div class="fb">
       <h3>Monitoreo y seguimiento operativo <span class="tag neu">72 horas</span></h3>
-      <p class="fdesc">La cabina <b>no cierra el caso</b> hasta cumplir el ciclo de 72 horas.</p>
-      <div class="esc-grid">
-        <div class="esc c-cyan">
-          <span class="esc-label">Contacto con la policia</span>
-          Llamadas periodicas al ECU 911 o personal en territorio para actualizar el estado de la busqueda.
+      <details class="acc" style="margin-top:6px">
+        <summary><b>No cerrar el caso</b> hasta cumplir 72 horas</summary>
+        <div class="acc-body">
+          <div class="esc-grid" style="margin-top:4px">
+            <div class="esc c-cyan">
+              <span class="esc-label">Contacto con la policia</span>
+              Llamadas periodicas al ECU 911 para actualizar estado de la busqueda.
+            </div>
+            <div class="esc c-cyan">
+              <span class="esc-label">Actualizacion al cliente</span>
+              Cada <b>12 o 24 horas</b> (o antes si hay novedades).
+            </div>
+          </div>
         </div>
-        <div class="esc c-cyan">
-          <span class="esc-label">Actualizacion al cliente</span>
-          Llamadas de seguimiento cada <b>12 o 24 horas</b> (o antes si hay novedades).
-        </div>
-      </div>
+      </details>
     </div>
   </div>
 
@@ -1223,7 +1142,7 @@ footer a:hover{color:var(--cyan)}
     <div class="fn"><span>F5</span></div>
     <div class="fb">
       <h3>Cierre de caso e informe tecnico <span class="tag neu">Soporte Fiscalia</span></h3>
-      <p class="fdesc">Se emite un <b>Informe Tecnico Final en PDF</b> enviado por correo. Crucial para tramitar el seguro o denuncia en Fiscalia.</p>
+      <p class="fdesc">Se emite <b>Informe Tecnico Final en PDF</b> por correo. Necesario para seguro o denuncia en Fiscalia.</p>
       <details class="acc">
         <summary>Estructura del Informe Final <span class="cnt">5 secciones</span></summary>
         <div class="acc-body">
@@ -1239,18 +1158,6 @@ footer a:hover{color:var(--cyan)}
     </div>
   </div>
 
-  <!-- PDF ROBO -->
-  <div class="pdf-viewer" data-unit>
-    <div class="pdf-bar">
-      <span class="pdf-title">Protocolo de Emergencia — Robo.pdf</span>
-      <div class="pdf-actions">
-        <button class="pbtn" onclick="tgl('fr1',this)"><svg viewBox="0 0 14 14"><path d="M2 5V2h3M9 2h3v3M2 9v3h3M9 12h3v-3"/></svg>Expandir</button>
-        <a class="pbtn" href="PROTOCOLO DE EMERGENCIA_ROBO (1).pdf" target="_blank"><svg viewBox="0 0 14 14"><path d="M6 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M9 2h3v3M11 2l-5 5"/></svg>Abrir</a>
-        <a class="pbtn primary" href="PROTOCOLO DE EMERGENCIA_ROBO (1).pdf" download><svg viewBox="0 0 14 14"><path d="M7 2v8M4 8l3 3 3-3M2 12h10"/></svg>Descargar</a>
-      </div>
-    </div>
-    <iframe id="fr1" class="pdf-sm" src="PROTOCOLO DE EMERGENCIA_ROBO (1).pdf#toolbar=1&navpanes=0&view=FitH" title="Protocolo Robo"></iframe>
-  </div>
 </section>
 
 
@@ -1264,7 +1171,7 @@ footer a:hover{color:var(--cyan)}
 
   <div class="fase" data-unit>
     <div class="fase-head">
-      <span class="fase-num" style="background:var(--vio);color:#fff">PLANTILLA</span>
+      <span class="fase-num" style="border-color:var(--vio);color:var(--vio)">PLANTILLA</span>
       <h3>Respuesta de bloqueo a financieras</h3>
     </div>
     <div class="fase-body">
@@ -1282,17 +1189,17 @@ footer a:hover{color:var(--cyan)}
               Copiar plantilla
             </button>
           </div>
-          <div style="background:var(--ink);border-radius:10px;border:1px solid rgba(109,40,217,.3);
-                      font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:2;padding:16px 18px;color:#C8D0F0">
-            <div><span style="color:#7B88B0">Expediente:</span> <span style="color:#4A5270">____________</span></div>
-            <div><span style="color:#7B88B0">Asistencia:</span> <span style="color:#4A5270">____________</span></div>
-            <div><span style="color:#7B88B0">Afiliado:</span> <span style="color:#4A5270">____________</span></div>
-            <div><span style="color:#7B88B0">C.I.:</span> <span style="color:#4A5270">____________</span></div>
-            <div><span style="color:#7B88B0">Cuenta:</span> <span style="color:var(--cyan);font-weight:600">CARCONNECT S.A.</span></div>
-            <div><span style="color:#7B88B0">Plan:</span> <span style="color:var(--cyan);font-weight:600">ASISTENCIA VIAL CARCONNECT</span></div>
-            <div><span style="color:#7B88B0">Servicio:</span> BLOQUEO / DESBLOQUEO <span style="font-size:10px;color:var(--amber);font-style:italic">(elegir solo uno al enviar)</span></div>
-            <div style="margin-top:4px"><span style="color:#7B88B0">Ubicación de la ejecución:</span></div>
-            <div style="color:#6EE7AE">https://maps.app.goo.gl/<span style="color:#4A5270">...</span></div>
+          <div style="background:var(--card);border-radius:10px;border:1.5px solid #DDD6FE;
+                      font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:2;padding:16px 18px;color:var(--text)">
+            <div><span style="color:var(--text-dim)">Expediente:</span> <span style="color:#C0C8DE">____________</span></div>
+            <div><span style="color:var(--text-dim)">Asistencia:</span> <span style="color:#C0C8DE">____________</span></div>
+            <div><span style="color:var(--text-dim)">Afiliado:</span> <span style="color:#C0C8DE">____________</span></div>
+            <div><span style="color:var(--text-dim)">C.I.:</span> <span style="color:#C0C8DE">____________</span></div>
+            <div><span style="color:var(--text-dim)">Cuenta:</span> <span style="color:var(--cyan-d);font-weight:600">CARCONNECT S.A.</span></div>
+            <div><span style="color:var(--text-dim)">Plan:</span> <span style="color:var(--cyan-d);font-weight:600">ASISTENCIA VIAL CARCONNECT</span></div>
+            <div><span style="color:var(--text-dim)">Servicio:</span> BLOQUEO / DESBLOQUEO <span style="font-size:10px;color:var(--amber-d);font-style:italic">(elegir solo uno al enviar)</span></div>
+            <div style="margin-top:4px"><span style="color:var(--text-dim)">Ubicación de la ejecución:</span></div>
+            <div style="color:var(--green-d)">https://maps.app.goo.gl/<span style="color:#C0C8DE">...</span></div>
           </div>
           <div style="margin-top:8px;background:#F0FAFF;border:1px dashed #BAE6FD;border-radius:8px;
                       padding:9px 13px;display:flex;align-items:center;gap:8px">
@@ -1329,18 +1236,67 @@ footer a:hover{color:var(--cyan)}
   </div>
 </section>
 
+<!-- ══ 08 · DOCUMENTACIÓN ══ -->
+<section id="documentos">
+  <div class="sec-head">
+    <span class="sec-num">08</span>
+    <h2>Documentación</h2>
+    <span class="shn">Protocolos y anexos en PDF.</span>
+  </div>
+
+  <div class="doc-grid">
+
+    <div class="doc-card">
+      <div class="doc-card-head">
+        <div class="doc-card-ico"><svg viewBox="0 0 14 14"><path d="M2 1h7l3 3v9H2zM9 1v3h3M5 6h4M5 8.5h4M5 11h2"/></svg></div>
+        <div class="doc-card-name">Protocolo Bloqueo y Desbloqueo</div>
+      </div>
+      <div class="doc-card-actions">
+        <a class="pbtn" href="PROTOCOLO DE EMERGENCIA_BLOQUEO Y DESBLOQUEO (1).pdf" target="_blank"><svg viewBox="0 0 14 14"><path d="M6 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M9 2h3v3M11 2l-5 5"/></svg>Abrir</a>
+        <a class="pbtn primary" href="PROTOCOLO DE EMERGENCIA_BLOQUEO Y DESBLOQUEO (1).pdf" download><svg viewBox="0 0 14 14"><path d="M7 2v8M4 8l3 3 3-3M2 12h10"/></svg>Descargar</a>
+      </div>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-card-head">
+        <div class="doc-card-ico"><svg viewBox="0 0 14 14"><path d="M2 1h7l3 3v9H2zM9 1v3h3M5 6h4M5 8.5h4M5 11h2"/></svg></div>
+        <div class="doc-card-name">Protocolo de Emergencia — Robo</div>
+      </div>
+      <div class="doc-card-actions">
+        <a class="pbtn" href="PROTOCOLO DE EMERGENCIA_ROBO (1).pdf" target="_blank"><svg viewBox="0 0 14 14"><path d="M6 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M9 2h3v3M11 2l-5 5"/></svg>Abrir</a>
+        <a class="pbtn primary" href="PROTOCOLO DE EMERGENCIA_ROBO (1).pdf" download><svg viewBox="0 0 14 14"><path d="M7 2v8M4 8l3 3 3-3M2 12h10"/></svg>Descargar</a>
+      </div>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-card-head">
+        <div class="doc-card-ico"><svg viewBox="0 0 14 14"><path d="M2 1h7l3 3v9H2zM9 1v3h3M5 6h4M5 8.5h4M5 11h2"/></svg></div>
+        <div class="doc-card-name">Guia plataforma GPS — Carconnect</div>
+      </div>
+      <div class="doc-card-actions">
+        <a class="pbtn" href="GUIA_PLATAFORMA_GPS.pdf" target="_blank"><svg viewBox="0 0 14 14"><path d="M6 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M9 2h3v3M11 2l-5 5"/></svg>Abrir</a>
+        <a class="pbtn primary" href="GUIA_PLATAFORMA_GPS.pdf" download><svg viewBox="0 0 14 14"><path d="M7 2v8M4 8l3 3 3-3M2 12h10"/></svg>Descargar</a>
+      </div>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-card-head">
+        <div class="doc-card-ico"><svg viewBox="0 0 14 14"><path d="M2 1h7l3 3v9H2zM9 1v3h3M5 6h4M5 8.5h4M5 11h2"/></svg></div>
+        <div class="doc-card-name">Anexo Programa ADDIUVA — Carconnect</div>
+      </div>
+      <div class="doc-card-actions">
+        <a class="pbtn" href="ANEXO PROGRAMA DE ASISTENCIA ADDIUVA - CARCONNECT (2).pdf" target="_blank"><svg viewBox="0 0 14 14"><path d="M6 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M9 2h3v3M11 2l-5 5"/></svg>Abrir</a>
+        <a class="pbtn primary" href="ANEXO PROGRAMA DE ASISTENCIA ADDIUVA - CARCONNECT (2).pdf" download><svg viewBox="0 0 14 14"><path d="M7 2v8M4 8l3 3 3-3M2 12h10"/></svg>Descargar</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 </main>
 
-<footer>
-  <div class="wrap">
-    <div class="fl">Carconnect · Capacitacion interna &nbsp;&middot;&nbsp; Creado por Edward Ravelo</div>
-    <div>
-      <a href="PROTOCOLO DE EMERGENCIA_ROBO (1).pdf" target="_blank">Protocolo Robo</a> &nbsp;&middot;&nbsp;
-      <a href="PROTOCOLO DE EMERGENCIA_BLOQUEO Y DESBLOQUEO (1).pdf" target="_blank">Protocolo Bloqueo</a> &nbsp;&middot;&nbsp;
-      <a href="ANEXO PROGRAMA DE ASISTENCIA ADDIUVA - CARCONNECT (2).pdf" target="_blank">ADDIUVA</a>
-    </div>
-  </div>
-</footer>
+</div><!-- /tab-panel -->
+</div><!-- /app-shell -->
 
 <div class="lb" id="lb" onclick="closeLb()">
   <button class="lb-close" onclick="closeLb()" aria-label="Cerrar">&times;</button>
@@ -1350,28 +1306,16 @@ footer a:hover{color:var(--cyan)}
   <div class="lb-cap" id="lb-cap"></div>
 </div>
 
-<button id="bt" aria-label="Volver arriba"><svg viewBox="0 0 18 18"><path d="M9 14V4M4 9l5-5 5 5"/></svg></button>
-
 <script>
+function switchTab(id){
+  document.querySelectorAll('section').forEach(function(s){s.classList.remove('tab-active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById(id).classList.add('tab-active');
+  document.querySelector('[onclick="switchTab(\''+id+'\')"]').classList.add('active');
+  document.querySelector('.tab-panel').scrollTop=0;
+}
+switchTab('saludo');
 (function(){
-  // Nav activa
-  var links=Array.prototype.slice.call(document.querySelectorAll('#toc a'));
-  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
-  if('IntersectionObserver' in window){
-    var sh=document.querySelector('.tocbar').offsetHeight;
-    var obs=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(!e.isIntersecting) return;
-        links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id);});
-        var act=document.querySelector('#toc a.active');
-        if(act) act.scrollIntoView({block:'nearest',inline:'nearest',behavior:'instant'});
-      });
-    },{rootMargin:'-'+(sh+5)+'px 0px -60% 0px'});
-    secs.forEach(function(s){obs.observe(s);});
-  }
-  var bt=document.getElementById('bt');
-  window.addEventListener('scroll',function(){bt.classList.toggle('show',window.scrollY>400);},{passive:true});
-  bt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
   var wo=[];
   window.addEventListener('beforeprint',function(){wo=[];document.querySelectorAll('details.acc').forEach(function(d,i){wo[i]=d.open;d.open=true;});});
   window.addEventListener('afterprint',function(){document.querySelectorAll('details.acc').forEach(function(d,i){d.open=wo[i];});});
