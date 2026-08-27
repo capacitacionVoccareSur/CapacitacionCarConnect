@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F3460'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='system-ui,sans-serif' font-size='10' font-weight='800' fill='%2300B4D8'%3ECC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#18191F; --ink-2:#1E222E; --ink-3:#252A38; --line:#DDE1EC;
@@ -25,10 +25,10 @@
 *{box-sizing:border-box}
 html,body{height:100%;overflow:hidden}
 body{margin:0;background:var(--paper);color:var(--text);
-  font-family:"IBM Plex Sans",system-ui,sans-serif;
+  font-family:"Inter",system-ui,sans-serif;
   font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;
-  margin:0;line-height:1.18;letter-spacing:-.01em}
+h1,h2,h3,h4{font-family:"Inter",sans-serif;
+  margin:0;line-height:1.18;letter-spacing:-.02em}
 p{margin:0 0 8px}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
@@ -40,7 +40,7 @@ p{margin:0 0 8px}
 .brand-icon{width:36px;height:36px;border-radius:7px;flex:none;
   background:var(--cyan);display:flex;align-items:center;justify-content:center}
 .brand-icon svg{width:20px;height:20px}
-.brand-name{font-family:"Bricolage Grotesque",sans-serif;font-size:17px;font-weight:700;
+.brand-name{font-family:"Inter",sans-serif;font-size:17px;font-weight:700;
   color:#fff;letter-spacing:-.02em}
 .brand-sub{font-size:10px;color:#777E99;margin-top:1px}
 .lbl-right{font-size:11px;color:#6B7280}
@@ -56,7 +56,7 @@ p{margin:0 0 8px}
 .tab-btn{padding:.55rem .9rem;white-space:nowrap;font-size:.8rem;font-weight:500;
   border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;
   background:transparent;color:var(--text-dim);
-  transition:color .15s,border-color .15s;font-family:"IBM Plex Sans",sans-serif}
+  transition:color .15s,border-color .15s;font-family:"Inter",sans-serif}
 .tab-btn:hover{color:var(--text)}
 .tab-btn.active{color:var(--cyan);font-weight:600;border-bottom-color:var(--cyan)}
 
@@ -94,7 +94,7 @@ section.tab-active{display:block}
   display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
 .sh-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);flex:none}
 .sh-label{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--text-dim)}
+  color:var(--text-dim);font-family:"Inter",sans-serif}
 .speech-body{padding:13px 14px}
 .speech-line{color:var(--text);font-size:14px;line-height:1.65;margin-bottom:8px}
 .speech-line:last-child{margin-bottom:0}
@@ -163,7 +163,7 @@ section.tab-active{display:block}
 /* Notas */
 .nota{border-radius:0;padding:7px 12px;margin:8px 0;border-left:3px solid;background:transparent}
 .nota .nt{font-size:11px;font-weight:700;display:block;margin-bottom:3px;
-  font-family:"IBM Plex Sans",sans-serif;letter-spacing:0;text-transform:none}
+  font-family:"Inter",sans-serif;letter-spacing:0;text-transform:none}
 .nota.warn{border-color:var(--amber)}.nota.warn .nt{color:var(--amber)}
 .nota.stop{background:var(--red-lite);border-color:var(--red)}.nota.stop .nt{color:var(--red-d)}
 .nota.go{border-color:var(--green)}.nota.go .nt{color:var(--green-d)}
@@ -184,8 +184,8 @@ section.tab-active{display:block}
   border-bottom:none;background:transparent}
 .fase-num{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
   color:var(--text-dim);background:transparent;border:none;padding:0;flex:none;
-  font-family:"IBM Plex Sans",sans-serif}
-.fase-head h3{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;
+  font-family:"Inter",sans-serif}
+.fase-head h3{font-family:"Inter",sans-serif;
   font-size:15px;font-weight:700;margin:0;color:var(--text)}
 .fase-body{padding:0}
 .fase-body>:last-child{margin-bottom:0}
@@ -225,7 +225,7 @@ td.k{font-weight:600;color:var(--text)}
 .brand-card{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px}
 .brand-card .blogo{margin-bottom:8px;line-height:1}
 .brand-card .blogo svg{width:84px;height:48px;border-radius:6px;display:block}
-.brand-card .bname{font-family:"Bricolage Grotesque",sans-serif;font-size:14px;
+.brand-card .bname{font-family:"Inter",sans-serif;font-size:14px;
   font-weight:700;margin:0}
 .brand-card .btag{font-size:9px;letter-spacing:.06em;text-transform:uppercase;
   color:var(--text-dim);margin-bottom:5px;display:block}
@@ -283,7 +283,7 @@ td.k{font-weight:600;color:var(--text)}
   display:grid;grid-template-columns:46px 1fr}
 .fase-big .fn{background:var(--surface);display:flex;align-items:center;justify-content:center;
   border-right:1px solid var(--border)}
-.fase-big .fn span{font-family:"Bricolage Grotesque",sans-serif;font-size:20px;
+.fase-big .fn span{font-family:"Inter",sans-serif;font-size:20px;
   font-weight:800;color:var(--text-dim);writing-mode:vertical-rl;
   text-orientation:mixed;transform:rotate(180deg);letter-spacing:.04em}
 .fase-big .fb{padding:11px 14px}
@@ -408,7 +408,7 @@ footer a:hover{color:var(--cyan)}
 
     <!-- SOA -->
     <div style="display:flex;flex-direction:column;gap:7px">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:2px">Registro SOA — Validar por VIN / cédula / nombre</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:2px">Registro SOA — Validar por VIN / cédula / nombre</div>
       <div class="nota info" style="margin:0;font-size:13px">
         <span class="nt">Afiliado no valida en base</span>
         Crear <b>manual</b> y escalar a <b>filial</b>.
@@ -592,12 +592,12 @@ footer a:hover{color:var(--cyan)}
         <div class="esc c-vio">
           <span class="esc-label">Credenciales de acceso</span>
           <div style="margin:8px 0 6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:90px">Correo</span>
-            <code style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">recuperaciones@carconnect.com.ec</code>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:90px">Correo</span>
+            <code style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">recuperaciones@carconnect.com.ec</code>
           </div>
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:90px">Contraseña</span>
-            <code style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">Addiuva2026</code>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:90px">Contraseña</span>
+            <code style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">Addiuva2026</code>
           </div>
         </div>
         <div class="esc c-cyan">
@@ -646,19 +646,19 @@ footer a:hover{color:var(--cyan)}
         <div class="esc c-cyan">
           <span class="esc-label">Enlace de acceso</span>
           <a href="https://web.autoconectado.io/select-org" target="_blank"
-             style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--cyan-d);font-weight:600;word-break:break-all">
+             style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyan-d);font-weight:600;word-break:break-all">
             https://web.autoconectado.io/select-org
           </a>
         </div>
         <div class="esc c-vio">
           <span class="esc-label">Credenciales de acceso GPS</span>
           <div style="margin:6px 0 4px;display:flex;align-items:center;gap:8px">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:72px">Usuario</span>
-            <code style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">recuperaciones@carconnect.com.ec</code>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:72px">Usuario</span>
+            <code style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">recuperaciones@carconnect.com.ec</code>
           </div>
           <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:72px">Clave</span>
-            <code style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">Addiuva2026</code>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:72px">Clave</span>
+            <code style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">Addiuva2026</code>
           </div>
         </div>
       </div>
@@ -683,7 +683,7 @@ footer a:hover{color:var(--cyan)}
         </div>
         <div class="esc c-cyan">
           <span class="esc-label">Linea de consultas</span>
-          <p style="font-size:22px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--cyan-d);margin:4px 0 0">1800 89 89</p>
+          <p style="font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--cyan-d);margin:4px 0 0">1800 89 89</p>
           <p style="font-size:13px;color:var(--text-soft);margin:4px 0 0">Asistencias, reportes de robo y solicitudes de bloqueo / desbloqueo.</p>
         </div>
       </div>
@@ -1127,9 +1127,9 @@ footer a:hover{color:var(--cyan)}
         <!-- COLUMNA IZQUIERDA: plantilla copiable -->
         <div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim)">Plantilla de texto</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim)">Plantilla de texto</span>
             <button onclick="copyPlantilla(this)"
-              style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+              style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
                      padding:5px 12px;border-radius:6px;border:1px solid var(--vio);background:var(--vio-lite);
                      color:var(--vio);cursor:pointer;font-weight:600;transition:.15s;display:flex;align-items:center;gap:5px">
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="1" width="10" height="12" rx="1.5"/><path d="M3 4H2a1 1 0 00-1 1v10a1 1 0 001 1h9a1 1 0 001-1v-1"/></svg>
@@ -1137,7 +1137,7 @@ footer a:hover{color:var(--cyan)}
             </button>
           </div>
           <div style="background:var(--card);border-radius:10px;border:1.5px solid #DDD6FE;
-                      font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:2;padding:16px 18px;color:var(--text)">
+                      font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:2;padding:16px 18px;color:var(--text)">
             <div><span style="color:var(--text-dim)">Expediente:</span> <span style="color:#C0C8DE">____________</span></div>
             <div><span style="color:var(--text-dim)">Asistencia:</span> <span style="color:#C0C8DE">____________</span></div>
             <div><span style="color:var(--text-dim)">Afiliado:</span> <span style="color:#C0C8DE">____________</span></div>
@@ -1160,12 +1160,12 @@ footer a:hover{color:var(--cyan)}
           <div class="esc c-vio">
             <span class="esc-label">Correo &mdash; Credenciales</span>
             <div style="margin:6px 0 3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:82px">Correo</span>
-              <code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;color:var(--text);word-break:break-all">recuperaciones@carconnect.com.ec</code>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:82px">Correo</span>
+              <code style="font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;color:var(--text);word-break:break-all">recuperaciones@carconnect.com.ec</code>
             </div>
             <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:82px">Contraseña</span>
-              <code style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;color:var(--text)">Addiuva2026</code>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);min-width:82px">Contraseña</span>
+              <code style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--text)">Addiuva2026</code>
             </div>
           </div>
           <div class="esc c-cyan">
